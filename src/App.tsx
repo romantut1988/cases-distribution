@@ -13,10 +13,14 @@ function App() {
         {id: 1, title: "HTML & CSS", isDone: true},
         {id: 2, title: "CSS & SCSS", isDone: true},
         {id: 3, title: "ES6/TS", isDone: false},
+        {id: 4, title: "ES6/TS", isDone: false},
     ]
     return (
         <div className="App">
-            <TodoList title={"What to learn"} tasks={tasks}/>
+            <TodoList
+                title={"What to learn"}
+                tasks={tasks}
+            />
         </div>
     );
 }

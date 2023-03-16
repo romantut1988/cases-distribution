@@ -4,10 +4,15 @@
 }
 
 .list {
+    background-color: indianred;
     margin-right: 50px;
-    border: 2px solid hotpink;
+    border: 2px solid rebeccapurple;
     border-radius: 5px;
     padding: 20px;
+}
+
+.list div {
+    padding: 10px;
 }
 
 ul {
