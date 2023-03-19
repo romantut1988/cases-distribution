@@ -17,7 +17,7 @@ function App() {
         // console.log(tasks)
     }
 
-    const [filter, setFilter] = useState<FilterValuesType>("active")
+    const [filter, setFilter] = useState<FilterValuesType>("all")
 
     const changeTodolistFilter = (filter: FilterValuesType) => {
         setFilter(filter)
