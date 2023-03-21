@@ -3,7 +3,7 @@
     display: flex;
 }
 
-.list {
+.todolist {
     background-color: indianred;
     margin-right: 50px;
     border: 2px solid rebeccapurple;
@@ -11,8 +11,21 @@
     padding: 20px;
 }
 
-.list div {
-    padding: 10px;
+.todolist div {
+    margin: 10px;
+}
+
+.todolist-empty {
+    height: 220px;
+    background-color: greenyellow;
+    margin-right: 50px;
+    border: 2px solid rebeccapurple;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.todolist-empty div {
+    margin: 10px;
 }
 
 ul {

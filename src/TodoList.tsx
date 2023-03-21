@@ -48,7 +48,7 @@ const TodoList: React.FC<TodoListPropsType> = (props) => {
     }
 
     return (
-        <div className="list">
+        <div className={todoClasses}>
             <h3>{props.title}</h3>
             <div>
                 <input
