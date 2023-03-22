@@ -11,23 +11,12 @@
     padding: 20px;
 }
 
-.todolist div {
-    margin: 10px;
-}
-
 .todolist-empty {
-    height: 220px;
     background-color: greenyellow;
     margin-right: 50px;
-    border: 2px solid rebeccapurple;
+    border: 2px solid #575870;
     border-radius: 5px;
     padding: 20px;
 }
 
-.todolist-empty div {
-    margin: 10px;
-}
 
-ul {
-    margin: 0;
-}
