@@ -6,7 +6,7 @@ type TodoListPropsType = {
     tasks: Array<TaskType>
     removeTask: (taskId: string) => void
     changeTodolistFilter: (filter: FilterValuesType) => void
-    changeTaskStatus: (taskId: string, newIsDone: boolean) => void
+    changeTaskStatus: (taskId: string) => void
     addTask: (title: string) => void
 }
 
@@ -16,34 +16,36 @@ export type TaskType = {
     isDone: boolean
 }
 
-const TodoList: React.FC<TodoListPropsType> = (props) => {
+const TodoList: React.FC<TodoListPropsType> = (
+    props) => {
     const [title, setTitle] = useState<string>("")
 
     let isAllTasksNotIsDone = true
     for (let i = 0; i < props.tasks.length; i++) {
         if (props.tasks[i].isDone) {
             isAllTasksNotIsDone = false
-            break
+            break;
         }
     }
     const todoClasses = isAllTasksNotIsDone ? "todolist-empty" : "todolist"
-    const maxTitleLength = 20
-    const recommendedTitleLength = 10
 
     const todolistItems: Array<JSX.Element> = props.tasks.map((task) => {
         const removeTaskHandler = () => props.removeTask(task.id)
+        const changeTaskStatus = () => props.changeTaskStatus(task.id)
         return (
             <li>
                 <input
+                    onChange={changeTaskStatus}
                     type="checkbox"
-                    checked={task.isDone}
-                />
+                    checked={task.isDone}/>
                 <span>{task.title}</span>
                 <button onClick={removeTaskHandler}>x</button>
             </li>
         )
     })
 
+    const maxTitleLength = 20
+    const recommendedTitleLength = 10
     const isAddTaskNotPossible = !title.length || title.length > maxTitleLength
 
 
