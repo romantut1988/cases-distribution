@@ -23,8 +23,8 @@ function App() {
         }
         setTasks([...tasks, newTask])
     }
-    const changeTaskStatus = (taskId: string, newIsDone: boolean) => {
-        setTasks(tasks.map(t => t.id === taskId ? {...t, isDone: newIsDone} : t))
+    const changeTaskStatus = (taskId: string) => {
+        setTasks(tasks.map(t => t.id === taskId ? {...t, isDone: !t.isDone} : t))
     }
 
     const [filter, setFilter] = useState<FilterValuesType>("all")
