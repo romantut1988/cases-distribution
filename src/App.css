@@ -3,6 +3,10 @@
     display: flex;
 }
 
+.App > div {
+    margin-right: 50px;
+}
+
 .todolist {
     background-color: indianred;
     margin-right: 50px;
@@ -13,10 +17,21 @@
 
 .todolist-empty {
     background-color: greenyellow;
-    margin-right: 50px;
     border: 2px solid #575870;
     border-radius: 5px;
     padding: 20px;
 }
 
-
+.task {
+    font-weight: bold;
+}
+.task-done {
+    font-weight: normal;
+    text-decoration: line-through;
+}
+.btn-active {
+    background-color: cornflowerblue;
+    color: white;
+    border: inherit;
+    border-radius: 3px;
+}

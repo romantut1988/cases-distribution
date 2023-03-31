@@ -6,7 +6,7 @@ type TodoListPropsType = {
     tasks: Array<TaskType>
     removeTask: (taskId: string) => void
     changeTodolistFilter: (filter: FilterValuesType) => void
-    changeTaskStatus: (taskId: string) => void
+    changeTaskStatus: (taskId: string, newIsDone: boolean) => void
     addTask: (title: string) => void
 }
 
@@ -31,14 +31,14 @@ const TodoList: React.FC<TodoListPropsType> = (
 
     const todolistItems: Array<JSX.Element> = props.tasks.map((task) => {
         const removeTaskHandler = () => props.removeTask(task.id)
-        const changeTaskStatus = () => props.changeTaskStatus(task.id)
+        const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, e.currentTarget.checked)
         return (
             <li>
                 <input
                     onChange={changeTaskStatus}
                     type="checkbox"
                     checked={task.isDone}/>
-                <span>{task.title}</span>
+                <span className={task.isDone ? "task-done" : "task"}>{task.title}</span>
                 <button onClick={removeTaskHandler}>x</button>
             </li>
         )
@@ -81,9 +81,11 @@ const TodoList: React.FC<TodoListPropsType> = (
                 {todolistItems}
             </ul>
             <div>
-                <button onClick={() => {
-                    props.changeTodolistFilter("all")
-                }}>All
+                <button
+                    className={"btn-active"}
+                    onClick={() => {
+                        props.changeTodolistFilter("all")
+                    }}>All
                 </button>
                 <button onClick={() => {
                     props.changeTodolistFilter("active")
