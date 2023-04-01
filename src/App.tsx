@@ -49,6 +49,7 @@ function App() {
                 removeTask={removeTask}
                 title={"What to learn"}
                 tasks={tasksForRender}
+                filter={filter}
                 addTask={addTask}
                 changeTaskStatus={changeTaskStatus}
                 changeTodolistFilter={changeTodolistFilter}
