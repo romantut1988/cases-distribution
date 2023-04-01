@@ -20,6 +20,7 @@ export type TaskType = {
 const TodoList: React.FC<TodoListPropsType> = (
     props) => {
     const [title, setTitle] = useState<string>("")
+    const [error, setError] = useState<boolean>(false)
 
     let isAllTasksNotIsDone = true
     for (let i = 0; i < props.tasks.length; i++) {
@@ -51,15 +52,25 @@ const TodoList: React.FC<TodoListPropsType> = (
 
 
     const addTaskHandler = () => {
-        props.addTask(title)
+        const trimmedTitle = title.trim()
+        if (trimmedTitle) {
+            props.addTask(title)
+        } else {
+            setError(true)
+        }
         setTitle("")
     }
-    const setLocalTitleHandler = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+    const setLocalTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        error && setError(false)
+        setTitle(e.currentTarget.value)
+    }
     const onKeyDownAddTaskHandler = isAddTaskNotPossible ? undefined :
         (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && addTaskHandler()
     const longTitleWarningMessage = (title.length > recommendedTitleLength && title.length <= maxTitleLength) &&
         <div style={{color: "white"}}>Title should be shorter </div>
-    const longTitleErrorMessage = title.length > maxTitleLength && <div style={{color: "red"}}>Title is too long</div>
+    const longTitleErrorMessage = title.length > maxTitleLength &&
+        <div style={{color: "#f23391"}}>Title is too long!!!</div>
+    const errorMessage = error && <div style={{color: "hotpink"}}>Title is hard required</div>
 
     return (
         <div className={todoClasses}>
@@ -69,7 +80,9 @@ const TodoList: React.FC<TodoListPropsType> = (
                     placeholder="Enter task title, please"
                     value={title}
                     onChange={setLocalTitleHandler}
-                    onKeyDown={onKeyDownAddTaskHandler}/>
+                    onKeyDown={onKeyDownAddTaskHandler}
+                    className={error ? "input-error" : ""}
+                />
                 <button
                     disabled={isAddTaskNotPossible}
                     onClick={addTaskHandler}
@@ -77,6 +90,7 @@ const TodoList: React.FC<TodoListPropsType> = (
                 </button>
                 {longTitleWarningMessage}
                 {longTitleErrorMessage}
+                {errorMessage}
             </div>
             <ul>
                 {todolistItems}

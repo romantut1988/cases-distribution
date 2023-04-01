@@ -8,7 +8,7 @@
 }
 
 .todolist {
-    background-color: indianred;
+    background-color: #575870;
     margin-right: 50px;
     border: 2px solid rebeccapurple;
     border-radius: 5px;
@@ -16,7 +16,7 @@
 }
 
 .todolist-empty {
-    background-color: greenyellow;
+    background-color: hotpink;
     border: 2px solid #575870;
     border-radius: 5px;
     padding: 20px;
@@ -32,6 +32,11 @@
 .btn-active {
     background-color: cornflowerblue;
     color: white;
-    border: inherit;
+    border: 2px solid cornflowerblue;
     border-radius: 3px;
+}
+
+.input-error {
+    outline: none;
+    border: 2px solid hotpink;
 }

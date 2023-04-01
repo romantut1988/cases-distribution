@@ -32,16 +32,17 @@ function App() {
         setFilter(filter)
     }
 
-    let tasksForRender: Array<TaskType> = []
-    if (filter === "all") {
-        tasksForRender = tasks
+    const getFilteredTaskForRender = (tasksList: Array<TaskType>, filterValue: FilterValuesType) => {
+        switch (filterValue) {
+            case "active":
+                return tasksList.filter(t => !t.isDone)
+            case "completed":
+                return tasksList.filter(t => t.isDone)
+            default:
+                return tasksList
+        }
     }
-    if (filter === "active") {
-        tasksForRender = tasks.filter(t => t.isDone === false)
-    }
-    if (filter === "completed") {
-        tasksForRender = tasks.filter(t => t.isDone === true)
-    }
+    let tasksForRender: Array<TaskType> = getFilteredTaskForRender(tasks, filter)
 
     return (
         <div className="App">
