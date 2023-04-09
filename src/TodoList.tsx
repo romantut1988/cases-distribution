@@ -2,13 +2,15 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from "./App";
 
 type TodoListPropsType = {
+    todolistId: string
     title: string
     tasks: Array<TaskType>
     filter: FilterValuesType
-    removeTask: (taskId: string) => void
-    changeTodolistFilter: (filter: FilterValuesType) => void
-    changeTaskStatus: (taskId: string, newIsDone: boolean) => void
-    addTask: (title: string) => void
+    removeTask: (taskId: string, todoList: string) => void
+    changeTodolistFilter: (filter: FilterValuesType, todoList: string) => void
+    changeTaskStatus: (taskId: string, newIsDone: boolean, todoList: string) => void
+    addTask: (title: string, todoList: string) => void
+    removeTodolist: (todoListId: string) => void
 }
 
 export type TaskType = {
@@ -17,8 +19,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-const TodoList: React.FC<TodoListPropsType> = (
-    props) => {
+const TodoList: React.FC<TodoListPropsType> = (props) => {
     const [title, setTitle] = useState<string>("")
     const [error, setError] = useState<boolean>(false)
 
@@ -32,8 +33,8 @@ const TodoList: React.FC<TodoListPropsType> = (
     const todoClasses = isAllTasksNotIsDone ? "todolist-empty" : "todolist"
 
     const todolistItems: Array<JSX.Element> = props.tasks.map((task) => {
-        const removeTaskHandler = () => props.removeTask(task.id)
-        const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, e.currentTarget.checked)
+        const removeTaskHandler = () => props.removeTask(task.id, props.todolistId)
+        const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, e.currentTarget.checked, props.todolistId)
         return (
             <li>
                 <input
@@ -54,7 +55,7 @@ const TodoList: React.FC<TodoListPropsType> = (
     const addTaskHandler = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle) {
-            props.addTask(title)
+            props.addTask(trimmedTitle, props.todolistId)
         } else {
             setError(true)
         }
@@ -64,6 +65,8 @@ const TodoList: React.FC<TodoListPropsType> = (
         error && setError(false)
         setTitle(e.currentTarget.value)
     }
+
+    const removeTodoList = () => props.removeTodolist(props.todolistId)
     const onKeyDownAddTaskHandler = isAddTaskNotPossible ? undefined :
         (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && addTaskHandler()
     const longTitleWarningMessage = (title.length > recommendedTitleLength && title.length <= maxTitleLength) &&
@@ -74,7 +77,13 @@ const TodoList: React.FC<TodoListPropsType> = (
 
     return (
         <div className={todoClasses}>
-            <h3>{props.title}</h3>
+
+            <h3>
+                {props.title}
+                <button onClick={removeTodoList}>x</button>
+            </h3>
+
+
             <div>
                 <input
                     placeholder="Enter task title, please"
@@ -99,17 +108,17 @@ const TodoList: React.FC<TodoListPropsType> = (
                 <button
                     className={props.filter === "all" ? "btn-active" : ""}
                     onClick={() => {
-                        props.changeTodolistFilter("all")
+                        props.changeTodolistFilter("all", props.todolistId)
                     }}>All
                 </button>
                 <button className={props.filter === "active" ? "btn-active" : ""}
                         onClick={() => {
-                            props.changeTodolistFilter("active")
+                            props.changeTodolistFilter("active", props.todolistId)
                         }}>Active
                 </button>
                 <button className={props.filter === "completed" ? "btn-active" : ""}
                         onClick={() => {
-                            props.changeTodolistFilter("completed")
+                            props.changeTodolistFilter("completed", props.todolistId)
                         }}>Active
                 </button>
             </div>

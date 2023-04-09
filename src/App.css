@@ -25,10 +25,12 @@
 .task {
     font-weight: bold;
 }
+
 .task-done {
     font-weight: normal;
     text-decoration: line-through;
 }
+
 .btn-active {
     background-color: cornflowerblue;
     color: white;
